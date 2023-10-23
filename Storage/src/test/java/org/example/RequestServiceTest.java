@@ -104,6 +104,6 @@ public class RequestServiceTest
     }
     private String GetPathToFile()
     {
-        return "D:\\Java\\WhiteStudents\\UsefulStorage_homeWork\\UsefulStorage\\src\\test\\java\\TestFile";
+        return "D:\\Java\\WhiteStudents\\UsefulStorageHomeWork\\Storage\\src\\test\\java\\org\\example\\TestFile";
     }
 }

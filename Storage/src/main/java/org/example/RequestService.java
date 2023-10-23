@@ -70,6 +70,7 @@ public class RequestService
     public UsefulObject  displayRecordsByName(String name)
     {
         UsefulObject useful = new UsefulObject();
+        System.out.println(useful.GetStringData());
         int stack = 0;
 
         for (UsefulObject obj : _dictionary.values() )
