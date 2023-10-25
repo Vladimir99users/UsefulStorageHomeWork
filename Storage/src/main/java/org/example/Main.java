@@ -14,8 +14,25 @@ public class Main
         }
 
         String path = args[0];
-        Readable readFile = new ReadDataFromFile();
-        String finallyStr =  readFile.readData(path);
+        String finallyStr = "";
+
+        try
+        {
+            Readable readFile = new ReadDataFromFile();
+
+            finallyStr =  readFile.readData(path);
+
+        } catch (Exception e)
+        {
+            throw new Exception(e);
+        }
+
+
+        if(finallyStr.isEmpty())
+        {
+            System.out.println("Финальная строка оказалась пустой!");
+            return;
+        }
 
         List<UsefulObject> usefulObjects = GetDataFromString(finallyStr);
 
