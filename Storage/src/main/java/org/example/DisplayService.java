@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class DisplayService
             switch (choice) {
                 case 1 :
                     System.out.print("Enter ID: ");
-                    int indexFind = scanner.nextInt();
+                    long indexFind = scanner.nextInt();
                     findDataByID(indexFind);
                     break;
                 case 2 :
@@ -49,7 +51,9 @@ public class DisplayService
 
     private void findDataByName(String data)
     {
-        List<UsefulObject> objs = service.getUsefulObjectsByName(data);
+        List<UsefulObject> objs = new ArrayList<>();
+
+        objs = service.getUsefulObjectsByName(data);
 
         for (UsefulObject obj : objs)
         {
@@ -57,7 +61,7 @@ public class DisplayService
         }
     }
 
-    private void findDataByID(Integer data)
+    private void findDataByID(Long data)
     {
         UsefulObject obj = service.getUsefulObjectByID(data);
 
@@ -66,9 +70,10 @@ public class DisplayService
 
     private void DisplayData(UsefulObject obj)
     {
-        System.out.println
-        (
-               String.format("Object is %s", obj.GetStringData())
-        );
+        if(Objects.isNull(obj))
+            return;
+
+
+        System.out.println(String.format("Object is %s", obj.GetStringData()));
     }
 }
