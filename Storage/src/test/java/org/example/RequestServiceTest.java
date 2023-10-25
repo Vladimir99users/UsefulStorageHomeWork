@@ -1,10 +1,7 @@
 package org.example;
 
-import org.example.IReadable;
-import org.example.ReadDataFromFile;
-import org.example.UsefulObject;
-import  org.example.RequestService;
 import org.junit.Test;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,98 +9,54 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class RequestServiceTest
 {
     @Test
     public  void AddToStorageUsefulObjects()
     {
-        UsefulObject objExpected = new UsefulObject(2, "Drop down", "Отключиться", "https://yandex.ru");
+        //Тест на проверку добавления объекта.
+        RequestService requestService = new RequestService();
 
-        Map<Integer,UsefulObject> dictionary = new HashMap<Integer,UsefulObject>();
+        UsefulObject objExpected = new UsefulObject("Drop down", "Отключиться", "https://yandex.ru");
 
-        dictionary.put(objExpected.ID, objExpected);
+        requestService.AddUsefulObject(objExpected);
 
-        UsefulObject newObj = new UsefulObject(2, "Drop down", "Отключиться", "https://yandex.ru");
-
-        assertNotEquals(objExpected, newObj);
+        assertEquals(objExpected, requestService.getUsefulObjectByID(objExpected.ID));
     }
-
-
-
     @Test
     public void CorrectIDTest()
     {
-        int testID = 109;
+        // Тест на проверку ID - ID это хэш код имени
+        String checkName = "Fedor";
+        long expectedID = Integer.parseInt(String.format("%s", checkName.hashCode()));
 
-        IReadable readFile = new ReadDataFromFile();
+        RequestService requestService = new RequestService();
 
-        String value = readFile.Read(GetPathToFile());
-        List<UsefulObject> usefulObjects = GetDataFromString(value);
+        UsefulObject obj = new UsefulObject(checkName, "age 17", "https://Fedor.com");
+        requestService.AddUsefulObject(obj);
 
-        Map<Integer,UsefulObject> dictionary = SetDataFromDictionary(usefulObjects);
+        UsefulObject newObj = requestService.getUsefulObjectByID(expectedID);
 
-        RequestService sevice = new RequestService(dictionary);
-
-        UsefulObject obj = sevice.displayRecordById(testID);
-
-        assertNotNull(obj);
-        assertEquals(testID, obj.ID);
+        assertNotNull(newObj);
+        assertEquals(expectedID, newObj.ID);
     }
 
     @Test
     public void SearchUsefulObjectToNameTest()
     {
-        String nameExpected = "Led";
+        //Проверка на правильность поиска имени, суть в том, что мы должны находить массив объектов, с одинаковым именем, а это значит, что если первый элемент проходит, то и остальные тоже.
+        String expectedName = "Fedor";
 
-        IReadable readFile = new ReadDataFromFile();
+        UsefulObject usefulObj = new UsefulObject(expectedName, "age 17", "https://Fedor.com");
+        RequestService requestService = new RequestService();
 
-        String value = readFile.Read(GetPathToFile());
-        List<UsefulObject> usefulObjects = GetDataFromString(value);
+        requestService.AddUsefulObject(usefulObj);
 
-        Map<Integer,UsefulObject> dictionary = SetDataFromDictionary(usefulObjects);
+        List<UsefulObject> newObjs = requestService.getUsefulObjectsByName(expectedName);
 
-        RequestService sevice = new RequestService(dictionary);
-
-        UsefulObject obj = sevice.displayRecordsByName(nameExpected);
-
-        assertNotNull(obj);
-        assertEquals(nameExpected, obj.Name);
-    }
-
-    private  static List<UsefulObject> GetDataFromString(String finallyStr)
-    {
-        List<UsefulObject> usefulObjects = new ArrayList<UsefulObject>();
-
-        String[] str = finallyStr.split("\n");
-        for (String s : str) {
-            String[] value = s.split(",");
-
-            UsefulObject newObj = new UsefulObject
-                    (
-                            Integer.parseInt(value[0]),
-                            value[1],
-                            value[2],
-                            value[3]
-                    );
-
-            usefulObjects.add(newObj);
-        }
-        return usefulObjects;
-    }
-    private  static Map<Integer,UsefulObject> SetDataFromDictionary(List<UsefulObject> datas)
-    {
-        Map<Integer,UsefulObject> dictionary = new HashMap<Integer,UsefulObject>();
-
-        for (UsefulObject data : datas)
-        {
-            dictionary.put(data.ID, data);
-        }
-
-        return  dictionary;
-    }
-    private String GetPathToFile()
-    {
-        return "D:\\Java\\WhiteStudents\\UsefulStorageHomeWork\\Storage\\src\\test\\java\\org\\example\\TestFile";
+        assertNotNull(newObjs);
+        assertEquals(expectedName, newObjs.get(0).Name);
     }
 }
