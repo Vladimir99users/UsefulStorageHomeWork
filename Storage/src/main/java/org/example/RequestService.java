@@ -1,94 +1,44 @@
 package org.example;
 
-import java.util.ArrayList;
+import org.w3c.dom.events.Event;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Objects;
 
 public class RequestService
 {
-    private Map<Integer,UsefulObject> _dictionary;
+    private final Map<Long,UsefulObject> objectMap;
+    // можно потом интерфейсы для поиска, заменить на Generic если возможно, а также передавать в конструкторе.
+    private final findableID findableID = new FindByID();
+    private final findableString findableString = new FindByName();
 
-    public RequestService(Map<Integer,UsefulObject> dictionary)
+    public RequestService()
     {
-        _dictionary = dictionary;
-    }
-    public  void RunService()
-    {
-
-
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-
-        System.out.println("Здравствуйте, что бы вы хотели сделать?");
-        System.out.println("1 - Display a record");
-        System.out.println("2 - Search records by name");
-        System.out.println("3 - Exit");
-
-        while (!isExit)
-        {
-            System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1 :
-                    System.out.print("Enter ID: ");
-                    int indexFind = scanner.nextInt();
-                    displayRecordById(indexFind);
-                    break;
-                case 2 :
-                    System.out.print("Enter string: ");
-                    String nameSearch = scanner.nextLine();
-                    displayRecordsByName(nameSearch);
-                    break;
-                case 3 :
-                    isExit = true;
-                    break;
-                default :
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
+        objectMap = new HashMap<Long,UsefulObject>();
     }
 
-    public UsefulObject displayRecordById(int choice)
+    public void AddUsefulObject(UsefulObject obj)
     {
-        Scanner scanner = new Scanner(System.in);
+        Objects.requireNonNull(obj, "Передаётся нулевой объект");
 
-
-        UsefulObject obj = _dictionary.get(choice);
-
-        if(obj == null)
+        if(objectMap.containsValue(obj))
         {
-            System.out.println("ID is not founded");
+            System.out.println("The object has already been added to the collection");
+            return;
         }
 
-        System.out.println(obj.GetStringData());
-        return  obj;
+        objectMap.put(obj.ID, obj);
+    }
+    public UsefulObject getUsefulObjectByID(Long data)
+    {
+        return findableID.GetFindData(data, objectMap);
     }
 
-    public UsefulObject  displayRecordsByName(String name)
+    public List<UsefulObject> getUsefulObjectsByName(String data)
     {
-        UsefulObject useful = new UsefulObject();
-        System.out.println(useful.GetStringData());
-        int stack = 0;
-
-        for (UsefulObject obj : _dictionary.values() )
-        {
-            if(name.equalsIgnoreCase(obj.Name))
-            {
-                stack++;
-                System.out.println(obj.GetStringData());
-                useful = obj;
-            }
-        }
-
-        if(stack == 0)
-        {
-            System.out.println("Запись не найдена.\n");
-        }
-
-        return  useful;
+        return findableString.GetFindData(data, objectMap);
     }
-
 }
+
