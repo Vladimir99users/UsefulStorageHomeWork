@@ -2,11 +2,11 @@ package org.example;
 
 import java.io.*;
 
-public  class  ReadDataFromFile implements IReadable
+public  class  ReadDataFromFile implements Readable
 {
 
     @Override
-    public String Read(String path)
+    public String readData(String path)
     {
         File file = new File(path);
         String str = "";

@@ -2,18 +2,14 @@ package org.example;
 
 public class UsefulObject
 {
-    public int ID;
+    public long ID;
     public  String Name;
     public  String Description;
     public  String URL;
 
-    public  UsefulObject()
+    public UsefulObject(String name, String description, String uRL )
     {
-        this(-1, "default name", "default Description", "default url"  );
-    }
-    public UsefulObject(int id, String name, String description, String uRL )
-    {
-        ID = id;
+        ID =  Long.parseLong(String.format("%s%d", name.hashCode(), description.length()));
         Name = name;
         Description = description;
         URL = uRL;

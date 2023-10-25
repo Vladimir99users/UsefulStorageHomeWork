@@ -1,6 +1,8 @@
-15,Test,Enable, https://yandex.ru
-132,Haha,Я смеюсь, https://google.com
-112,Gaga,Я плачу, https://duckduckgo.com
-109,Led,Я делаю, https://Yahoo.com
-110,Led,Я делаю, https://Yahoo.com
-145,Potem,Я в шоке, https://Shodan.io
+Test,Enable, https://yandex.ru
+Haha,Я смеюсь, https://google.com
+Gaga,Я плачу, https://duckduckgo.com
+Led,Я делаю, https://Yahoo.com
+Led,Я делаю, https://Yahoo.com
+Potem,Я в шоке 1, https://Shodan.io
+Potem,Я в шоке 2, https://Shodan.io
+Potem,Я в шоке 3, https://Shodan.io
