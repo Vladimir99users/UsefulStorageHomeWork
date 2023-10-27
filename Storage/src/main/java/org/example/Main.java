@@ -36,7 +36,7 @@ public class Main
 
         List<UsefulObject> usefulObjects = GetDataFromString(finallyStr);
 
-        RequestService requestService = new RequestService();
+        RequestService requestService = new RequestService(new Requests());
 
 
         SetDataFromRequestService(requestService, usefulObjects);

@@ -1,7 +1,5 @@
 package org.example;
 
-import org.w3c.dom.events.Event;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +8,11 @@ import java.util.Objects;
 public class RequestService
 {
     private final Map<Long,UsefulObject> objectMap;
-    // можно потом интерфейсы для поиска, заменить на Generic если возможно, а также передавать в конструкторе.
-    private final findableID findableID = new FindByID();
-    private final findableString findableString = new FindByName();
+    private final Requestable requests;
 
-    public RequestService()
+    public RequestService(Requestable requests)
     {
+        this.requests = requests;
         objectMap = new HashMap<Long,UsefulObject>();
     }
 
@@ -33,12 +30,12 @@ public class RequestService
     }
     public UsefulObject getUsefulObjectByID(Long data)
     {
-        return findableID.GetFindData(data, objectMap);
+        return requests.GetFindData(data, objectMap);
     }
 
     public List<UsefulObject> getUsefulObjectsByName(String data)
     {
-        return findableString.GetFindData(data, objectMap);
+        return requests.GetFindData(data, objectMap);
     }
 }
 
