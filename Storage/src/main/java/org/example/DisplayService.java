@@ -32,12 +32,12 @@ public class DisplayService
                 case 1 :
                     System.out.print("Enter ID: ");
                     long indexFind = scanner.nextInt();
-                    findDataByID(indexFind);
+                    DisplayObjectToID(indexFind);
                     break;
                 case 2 :
                     System.out.print("Enter string: ");
                     String nameSearch = scanner.nextLine();
-                    findDataByName( nameSearch);
+                    DisplayObjectToName( nameSearch);
                     break;
                 case 3 :
                     isExit = true;
@@ -49,11 +49,11 @@ public class DisplayService
 
     }
 
-    private void findDataByName(String data)
+    private void DisplayObjectToName(String id)
     {
         List<UsefulObject> objs = new ArrayList<>();
 
-        objs = service.getUsefulObjectsByName(data);
+        objs = service.getUsefulObjectsByName(id);
 
         for (UsefulObject obj : objs)
         {
@@ -61,9 +61,9 @@ public class DisplayService
         }
     }
 
-    private void findDataByID(Long data)
+    private void DisplayObjectToID(Long id)
     {
-        UsefulObject obj = service.getUsefulObjectByID(data);
+        UsefulObject obj = service.getUsefulObjectByID(id);
 
         DisplayData(obj);
     }
