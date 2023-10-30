@@ -20,13 +20,13 @@ public class RequestService
     {
         Objects.requireNonNull(obj, "Передаётся нулевой объект");
 
-        if(objectMap.containsValue(obj))
+        if(objectMap.containsKey(obj.getId()))
         {
             System.out.println("The object has already been added to the collection");
             return;
         }
 
-        objectMap.put(obj.ID, obj);
+        objectMap.put(obj.getId(), obj);
     }
     public UsefulObject getUsefulObjectByID(Long data)
     {

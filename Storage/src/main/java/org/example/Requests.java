@@ -25,7 +25,7 @@ public class Requests implements Requestable
 
         for (UsefulObject obj : objectMap.values())
         {
-            if (name.equalsIgnoreCase(obj.Name))
+            if (name.equalsIgnoreCase(obj.getName()))
             {
                 usefulObjects.add(obj);
             }

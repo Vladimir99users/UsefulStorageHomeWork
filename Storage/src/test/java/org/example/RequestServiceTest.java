@@ -21,7 +21,7 @@ public class RequestServiceTest
 
         requestService.addUsefulObject(objExpected);
 
-        assertEquals(objExpected, requestService.getUsefulObjectByID(objExpected.ID));
+        assertEquals(objExpected, requestService.getUsefulObjectByID(objExpected.getId()));
     }
     @Test
     public void correctIDTest()
@@ -39,7 +39,7 @@ public class RequestServiceTest
         UsefulObject newObj = requestService.getUsefulObjectByID(expectedID);
 
         assertNotNull(newObj);
-        assertEquals(expectedID, newObj.ID);
+        assertEquals(expectedID, newObj.getId());
     }
 
     @Test
@@ -48,15 +48,22 @@ public class RequestServiceTest
         //Проверка на правильность поиска имени, суть в том, что мы должны находить массив объектов, с одинаковым именем, а это значит, что если первый элемент проходит, то и остальные тоже.
         String expectedName = "Fedor";
 
-        UsefulObject usefulObj = new UsefulObject(expectedName, "age 17", "https://Fedor.com");
+        UsefulObject usefulObjFirst = new UsefulObject(expectedName, "age 17", "https://Fedor.com");
+        UsefulObject usefulObjSecond = new UsefulObject(expectedName, "age 182", "https://Fedor228.com");
+        UsefulObject usefulObjectThird = new UsefulObject("Alina", "None", "https://Alina1997@gmail.com");
+
         RequestService requestService = new RequestService(new Requests());
 
-        requestService.addUsefulObject(usefulObj);
+        requestService.addUsefulObject(usefulObjFirst);
+        requestService.addUsefulObject(usefulObjSecond);
+        requestService.addUsefulObject(usefulObjectThird);
 
         List<UsefulObject> newObjs = requestService.getUsefulObjectsByName(expectedName);
 
         assertNotNull(newObjs);
-        assertEquals(expectedName, newObjs.get(0).Name);
+        assertEquals(expectedName, newObjs.get(0).getName());
+        assertEquals(expectedName, newObjs.get(1).getName());
+
     }
 
     private String getPath()
@@ -65,8 +72,7 @@ public class RequestServiceTest
 
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(resourceName).getFile());
-        String absolutePath = file.getAbsolutePath();
 
-        return absolutePath;
+        return file.getAbsolutePath();
     }
 }
