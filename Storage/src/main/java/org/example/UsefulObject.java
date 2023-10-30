@@ -1,22 +1,43 @@
 package org.example;
 
+
 public class UsefulObject
 {
-    public long ID;
-    public  String Name;
-    public  String Description;
-    public  String URL;
+    private long id;
+    private  String name;
+    private  String description;
+    private  String url;
 
     public UsefulObject(String name, String description, String uRL )
     {
-        ID =  Long.parseLong(String.format("%s%d", name.hashCode(), description.length()));
-        Name = name;
-        Description = description;
-        URL = uRL;
+        id =  Long.parseLong(String.format("%s%d", name.hashCode(), description.length()));
+        this.name = name;
+        this.description = description;
+        url = uRL;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getURL()
+    {
+        return url;
     }
     
     public String getStringData()
     {
-       return String.format("ID %d , Name %s , Description %s, URL %s ", ID, Name, Description, URL);
+       return String.format("ID %d , Name %s , Description %s, URL %s ", id, name, description, url);
     }
 }
