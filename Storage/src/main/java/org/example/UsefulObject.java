@@ -15,7 +15,7 @@ public class UsefulObject
         URL = uRL;
     }
     
-    public String GetStringData()
+    public String getStringData()
     {
        return String.format("ID %d , Name %s , Description %s, URL %s ", ID, Name, Description, URL);
     }

@@ -12,7 +12,7 @@ public class DisplayService
     {
         this.service = service;
     }
-    public void RunService()
+    public void runService()
     {
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
@@ -32,12 +32,12 @@ public class DisplayService
                 case 1 :
                     System.out.print("Enter ID: ");
                     long indexFind = scanner.nextInt();
-                    DisplayObjectToID(indexFind);
+                    displayObjectToID(indexFind);
                     break;
                 case 2 :
                     System.out.print("Enter string: ");
                     String nameSearch = scanner.nextLine();
-                    DisplayObjectToName( nameSearch);
+                    displayObjectToName( nameSearch);
                     break;
                 case 3 :
                     isExit = true;
@@ -49,7 +49,7 @@ public class DisplayService
 
     }
 
-    private void DisplayObjectToName(String id)
+    private void displayObjectToName(String id)
     {
         List<UsefulObject> objs = new ArrayList<>();
 
@@ -57,23 +57,23 @@ public class DisplayService
 
         for (UsefulObject obj : objs)
         {
-            DisplayData(obj);
+            displayData(obj);
         }
     }
 
-    private void DisplayObjectToID(Long id)
+    private void displayObjectToID(Long id)
     {
         UsefulObject obj = service.getUsefulObjectByID(id);
 
-        DisplayData(obj);
+        displayData(obj);
     }
 
-    private void DisplayData(UsefulObject obj)
+    private void displayData(UsefulObject obj)
     {
         if(Objects.isNull(obj))
             return;
 
 
-        System.out.println(String.format("Object is %s", obj.GetStringData()));
+        System.out.println(String.format("Object is %s", obj.getStringData()));
     }
 }

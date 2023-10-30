@@ -16,7 +16,7 @@ public class RequestService
         objectMap = new HashMap<Long,UsefulObject>();
     }
 
-    public void AddUsefulObject(UsefulObject obj)
+    public void addUsefulObject(UsefulObject obj)
     {
         Objects.requireNonNull(obj, "Передаётся нулевой объект");
 
@@ -30,12 +30,12 @@ public class RequestService
     }
     public UsefulObject getUsefulObjectByID(Long data)
     {
-        return requests.GetFindData(data, objectMap);
+        return requests.getFindData(data, objectMap);
     }
 
     public List<UsefulObject> getUsefulObjectsByName(String data)
     {
-        return requests.GetFindData(data, objectMap);
+        return requests.getFindData(data, objectMap);
     }
 }
 

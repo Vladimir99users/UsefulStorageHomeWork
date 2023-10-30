@@ -4,12 +4,7 @@ import org.junit.Test;
 
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
@@ -17,19 +12,19 @@ import static org.junit.Assert.assertNotNull;
 public class RequestServiceTest
 {
     @Test
-    public  void AddToStorageUsefulObjects()
+    public  void addToStorageUsefulObjects()
     {
         //Тест на проверку добавления объекта.
         RequestService requestService = new RequestService(new Requests());
 
         UsefulObject objExpected = new UsefulObject("Drop down", "Отключиться", "https://yandex.ru");
 
-        requestService.AddUsefulObject(objExpected);
+        requestService.addUsefulObject(objExpected);
 
         assertEquals(objExpected, requestService.getUsefulObjectByID(objExpected.ID));
     }
     @Test
-    public void CorrectIDTest()
+    public void correctIDTest()
     {
         // Тест на проверку ID - ID это хэш код имени
         String checkName = "Fedor";
@@ -39,7 +34,7 @@ public class RequestServiceTest
         RequestService requestService = new RequestService(new Requests());
 
         UsefulObject obj = new UsefulObject(checkName, desctiption, "https://Fedor.com");
-        requestService.AddUsefulObject(obj);
+        requestService.addUsefulObject(obj);
 
         UsefulObject newObj = requestService.getUsefulObjectByID(expectedID);
 
@@ -48,7 +43,7 @@ public class RequestServiceTest
     }
 
     @Test
-    public void SearchUsefulObjectToNameTest()
+    public void searchUsefulObjectToNameTest()
     {
         //Проверка на правильность поиска имени, суть в том, что мы должны находить массив объектов, с одинаковым именем, а это значит, что если первый элемент проходит, то и остальные тоже.
         String expectedName = "Fedor";
@@ -56,7 +51,7 @@ public class RequestServiceTest
         UsefulObject usefulObj = new UsefulObject(expectedName, "age 17", "https://Fedor.com");
         RequestService requestService = new RequestService(new Requests());
 
-        requestService.AddUsefulObject(usefulObj);
+        requestService.addUsefulObject(usefulObj);
 
         List<UsefulObject> newObjs = requestService.getUsefulObjectsByName(expectedName);
 
@@ -64,7 +59,7 @@ public class RequestServiceTest
         assertEquals(expectedName, newObjs.get(0).Name);
     }
 
-    private String GetPath()
+    private String getPath()
     {
         String resourceName = "TestFile.txt";
 

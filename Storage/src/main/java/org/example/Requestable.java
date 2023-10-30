@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface Requestable
 {
-    public UsefulObject GetFindData(Long data, Map<Long,UsefulObject> objectMap);
-    public List<UsefulObject> GetFindData(String data, Map<Long,UsefulObject> objectMap);
+    public UsefulObject getFindData(Long data, Map<Long,UsefulObject> objectMap);
+    public List<UsefulObject> getFindData(String data, Map<Long,UsefulObject> objectMap);
 }

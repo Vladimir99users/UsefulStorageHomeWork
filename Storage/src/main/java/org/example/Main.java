@@ -1,9 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Main
 {
@@ -34,20 +32,20 @@ public class Main
             return;
         }
 
-        List<UsefulObject> usefulObjects = GetDataFromString(finallyStr);
+        List<UsefulObject> usefulObjects = getDataFromString(finallyStr);
 
         RequestService requestService = new RequestService(new Requests());
 
 
-        SetDataFromRequestService(requestService, usefulObjects);
+        setDataFromRequestService(requestService, usefulObjects);
 
 
         DisplayService displayService = new DisplayService(requestService);
 
-        displayService.RunService();
+        displayService.runService();
     }
 
-    private  static  List<UsefulObject> GetDataFromString(String finallyStr)
+    private  static  List<UsefulObject> getDataFromString(String finallyStr)
     {
         List<UsefulObject> usefulObjects = new ArrayList<UsefulObject>();
 
@@ -67,11 +65,11 @@ public class Main
         return usefulObjects;
     }
 
-    private  static void SetDataFromRequestService(RequestService requestService, List<UsefulObject> datas)
+    private  static void setDataFromRequestService(RequestService requestService, List<UsefulObject> datas)
     {
         for (UsefulObject data : datas)
         {
-            requestService.AddUsefulObject(data);
+            requestService.addUsefulObject(data);
         }
     }
 }

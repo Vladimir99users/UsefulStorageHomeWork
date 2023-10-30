@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Requests implements Requestable
 {
-    public UsefulObject GetFindData(Long choice, Map<Long,UsefulObject> objectMap)
+    public UsefulObject getFindData(Long choice, Map<Long,UsefulObject> objectMap)
     {
         UsefulObject obj = objectMap.get(choice);
 
@@ -19,7 +19,7 @@ public class Requests implements Requestable
         return obj;
     }
 
-    public List<UsefulObject> GetFindData(String name, Map<Long,UsefulObject> objectMap)
+    public List<UsefulObject> getFindData(String name, Map<Long,UsefulObject> objectMap)
     {
         List<UsefulObject> usefulObjects = new ArrayList<UsefulObject>();
 
