@@ -27,8 +27,6 @@ public class RequestService
 
     public void addUsefulObject(@NonNull UsefulObject obj)
     {
-
-
         if(objectMap.containsKey(obj.getId()))
         {
             System.out.println("The object has already been added to the collection");

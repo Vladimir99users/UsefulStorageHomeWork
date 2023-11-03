@@ -14,8 +14,7 @@ import java.util.Map;
 @Component
 public  class  ReadDataFromFile implements Readable
 {
-   // @Value("${data.path}")
-   // private String filePath;
+
 
     @Override
     public Map<Long, UsefulObject> readData(String path) {
