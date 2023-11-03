@@ -1,14 +1,20 @@
 package org.example;
 
+import lombok.NonNull;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.List;
 
+@Component
 public class DisplayService
 {
-    private RequestService service;
-    public DisplayService(RequestService service)
+    private final RequestService service;
+    public DisplayService(@NonNull RequestService service)
     {
         this.service = service;
     }
@@ -65,15 +71,17 @@ public class DisplayService
     {
         UsefulObject obj = service.getUsefulObjectByID(id);
 
+
         displayData(obj);
     }
 
-    private void displayData(UsefulObject obj)
+    private void displayData(@NonNull UsefulObject obj)
     {
-        if(Objects.isNull(obj))
+        if (Objects.isNull(obj))
+        {
             return;
+        }
 
-
-        System.out.println(String.format("Object is %s", obj.getStringData()));
+        System.out.println(String.format("Object is %s", obj.toString()));
     }
 }
