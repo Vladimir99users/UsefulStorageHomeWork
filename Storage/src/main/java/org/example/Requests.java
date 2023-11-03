@@ -1,12 +1,18 @@
 package org.example;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+
+@Component
 public class Requests implements Requestable
 {
+
     public UsefulObject getFindData(Long choice, Map<Long,UsefulObject> objectMap)
     {
         UsefulObject obj = objectMap.get(choice);
@@ -18,6 +24,7 @@ public class Requests implements Requestable
 
         return obj;
     }
+
 
     public List<UsefulObject> getFindData(String name, Map<Long,UsefulObject> objectMap)
     {
