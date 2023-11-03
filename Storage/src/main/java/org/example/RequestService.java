@@ -1,24 +1,33 @@
 package org.example;
 
+import lombok.NonNull;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+@Service
 public class RequestService
 {
-    private final Map<Long,UsefulObject> objectMap;
+
+    private Map<Long,UsefulObject> objectMap;
     private final Requestable requests;
 
-    public RequestService(Requestable requests)
-    {
+    public RequestService(@NonNull Requestable requests) {
         this.requests = requests;
         objectMap = new HashMap<Long,UsefulObject>();
     }
 
-    public void addUsefulObject(UsefulObject obj)
+    public void readJsonFile(String path) throws IOException {
+        Readable readData = new ReadDataFromFile();
+        objectMap = readData.readData(path);
+    }
+
+    public void addUsefulObject(@NonNull UsefulObject obj)
     {
-        Objects.requireNonNull(obj, "Передаётся нулевой объект");
+
 
         if(objectMap.containsKey(obj.getId()))
         {
