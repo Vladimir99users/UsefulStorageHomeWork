@@ -3,7 +3,6 @@ package org.example;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,20 +10,15 @@ import java.util.Map;
 @Service
 public class RequestService
 {
+    private final Requestable request;
+    private final Map<Long,UsefulObject> objectMap;
 
-    private Map<Long,UsefulObject> objectMap;
-    private final Requestable requests;
-
-    public RequestService(@NonNull Requestable requests) {
-        this.requests = requests;
-        objectMap = new HashMap<Long,UsefulObject>();
+    public RequestService(Requestable request, Map<Long,UsefulObject> objectMap)
+    {
+        this.request = request;
+        this.objectMap = new HashMap<>();
+        this.objectMap.putAll(objectMap);
     }
-
-    public void readJsonFile(String path) throws IOException {
-        Readable readData = new ReadDataFromFile();
-        objectMap = readData.readData(path);
-    }
-
     public void addUsefulObject(@NonNull UsefulObject obj)
     {
         if(objectMap.containsKey(obj.getId()))
@@ -37,12 +31,12 @@ public class RequestService
     }
     public UsefulObject getUsefulObjectByID(Long data)
     {
-        return requests.getFindData(data, objectMap);
+        return request.getFindData(data, objectMap);
     }
 
     public List<UsefulObject> getUsefulObjectsByName(String data)
     {
-        return requests.getFindData(data, objectMap);
+        return request.getFindData(data, objectMap);
     }
 }
 
