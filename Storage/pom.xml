@@ -13,9 +13,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <org.lombok.version>1.18.30</org.lombok.version>
-        <org.jupiter.version>5.9.3</org.jupiter.version>
-        <org.mockito.version>5.6.0</org.mockito.version>
     </properties>
 
     <parent>
@@ -41,34 +38,21 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${org.lombok.version}</version>
-            <scope>provided</scope>
+            <version>${lombok.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>${org.jupiter.version}</version>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>${org.mockito.version}</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -93,9 +77,9 @@
                     <target>1.17</target> <!-- or higher, depending on your project -->
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.projectlombok</groupId>
+                            <groupId>org.project-lombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${org.lombok.version}</version>
+                            <version>${lombok.version}</version>
                         </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
