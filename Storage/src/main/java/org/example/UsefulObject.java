@@ -9,11 +9,12 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
+@Data
 public class UsefulObject
 {
     private long id;
     private String name;
     private String description;
-    private String url;
+    private String link;
 
 }
