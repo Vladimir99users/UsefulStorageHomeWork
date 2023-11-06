@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class RequestServiceTest
@@ -26,14 +27,19 @@ public class RequestServiceTest
     @BeforeEach
     public  void setup()
     {
-        Requestable request = new Requests();
-        requestService = new RequestService(request);
+        Requestable requestable = new Requests();
+
+        Readable readable = new ReadDataFromFile();
+        Map<Long,UsefulObject> objectMap;
+
 
         try {
-            requestService.readJsonFile(getPath());
+            objectMap = readable.readData(getPath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        requestService = new RequestService(requestable, objectMap);
 
     }
     @Test
