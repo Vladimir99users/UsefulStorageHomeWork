@@ -3,11 +3,9 @@ package org.example;
 
 import lombok.*;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 @Data
 public class UsefulObject

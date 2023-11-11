@@ -1,20 +1,28 @@
 package org.example;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class CommandLiner implements CommandLineRunner
+@Component
+public class CommandLineRunner implements org.springframework.boot.CommandLineRunner
 {
-    private final String inputDataPath;
+    @Value("${input.data.path}")
+    private String inputDataPath;
     private DisplayService displayService;
-    public void Initialize() throws IOException
+
+    @Override
+    public void run(String... args) throws Exception
+    {
+        initializeComponent();
+        displayService.runService();
+    }
+    @SneakyThrows
+    private void initializeComponent()
     {
         Requestable requestable = new Requests();
 
@@ -24,10 +32,4 @@ public class CommandLiner implements CommandLineRunner
         displayService = new DisplayService(new RequestService(requestable, objectMap));
     }
 
-    @Bean
-    @Override
-    public void run(String... args) throws Exception
-    {
-        displayService.runService();
-    }
 }
