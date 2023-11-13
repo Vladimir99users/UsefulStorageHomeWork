@@ -22,20 +22,10 @@ public  class  ReadDataFromFile implements Readable
     {
         Map<Long, UsefulObject> datas = new HashMap<>();
 
-        ObjectMapper mapper = new ObjectMapper();
-
         File file = new File(path);
-        List<UsefulObject> usefulObjects = new ArrayList<>();
 
-        try
-        {
-            usefulObjects = mapper.readValue(file, new TypeReference<>() {});
-        }
-        catch(IOException e)
-        {
-            System.out.println(e);
-            return  new HashMap<>();
-        }
+        List<UsefulObject> usefulObjects = getListValue(file);
+
 
         for (UsefulObject usefulObject : usefulObjects)
         {
@@ -51,5 +41,19 @@ public  class  ReadDataFromFile implements Readable
 
 
         return datas;
+    }
+
+    private List<UsefulObject> getListValue(File file)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            return mapper.readValue(file, new TypeReference<>() {});
+        }
+        catch(IOException e)
+        {
+            throw new RuntimeException("An error occurred while reading file: " + file.toString());
+        }
     }
 }
