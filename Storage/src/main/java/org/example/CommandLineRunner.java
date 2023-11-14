@@ -5,9 +5,10 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Map;
 
-@RequiredArgsConstructor
+
 @Component
 public class CommandLineRunner implements org.springframework.boot.CommandLineRunner
 {
@@ -16,20 +17,36 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
     private DisplayService displayService;
 
     @Override
-    public void run(String... args) throws Exception
+    public void run(String... args)
     {
         initializeComponent();
         displayService.runService();
     }
-    @SneakyThrows
+
+
     private void initializeComponent()
     {
+        //Инициализация всех компонентов.
         Requestable requestable = new Requests();
 
-        Readable readable = new ReadDataFromFile();
-        Map<Long,UsefulObject> objectMap = readable.readData(inputDataPath);
+        Map<Long,UsefulObject> objectMap = getObjectMapFromFile();
 
         displayService = new DisplayService(new RequestService(requestable, objectMap));
+    }
+
+
+    private Map<Long,UsefulObject> getObjectMapFromFile()
+    {
+        //получаем нужные данные из файла.
+        try
+        {
+            Readable readable = new ReadDataFromFile();
+
+            return readable.readData(inputDataPath);
+        } catch (IOException exeption)
+        {
+            throw new RuntimeException(exeption);
+        }
     }
 
 }

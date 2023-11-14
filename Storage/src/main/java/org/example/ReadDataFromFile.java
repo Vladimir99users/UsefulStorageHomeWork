@@ -1,37 +1,27 @@
 package org.example;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serial;
-import java.util.ArrayList;
+import java.lang.reflect.Executable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public  class  ReadDataFromFile implements Readable
 {
-    @Override
+
     public Map<Long, UsefulObject> readData(String path)
     {
+        //Строим HashMap по данным с файла.
         Map<Long, UsefulObject> datas = new HashMap<>();
 
-        File file = new File(path);
-
-        List<UsefulObject> usefulObjects = getListValue(file);
-
+        List<UsefulObject> usefulObjects = getListValue(path);
 
         for (UsefulObject usefulObject : usefulObjects)
         {
-            String name = usefulObject.getName();
-            String description = usefulObject.getDescription();
-
             long id =  usefulObject.hashCode();
 
             usefulObject.setId(id);
@@ -39,12 +29,12 @@ public  class  ReadDataFromFile implements Readable
             datas.put(id, usefulObject);
         }
 
-
         return datas;
     }
-
-    private List<UsefulObject> getListValue(File file)
+    public List<UsefulObject> getListValue(String path)
     {
+        //Получаем данные через мапер и файл
+        File file = new File(path);
         ObjectMapper mapper = new ObjectMapper();
 
         try

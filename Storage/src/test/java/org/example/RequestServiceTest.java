@@ -77,7 +77,6 @@ public class RequestServiceTest
        //Проверка на правильность поиска имени, суть в том, что мы должны находить массив объектов, с одинаковым именем, а это значит, что если первый элемент проходит, то и остальные тоже.
         String expectedName = "Test";
 
-
         List<UsefulObject> newObjs = requestService.getUsefulObjectsByName(expectedName);
 
         Assertions.assertNotNull(newObjs);
