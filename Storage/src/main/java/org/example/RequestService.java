@@ -13,10 +13,14 @@ public class RequestService
     private final Requestable request;
     private final Map<Long,UsefulObject> objectMap;
 
-    public RequestService(Requestable request, Map<Long,UsefulObject> objectMap)
+    public RequestService(Requestable request)
     {
         this.request = request;
         this.objectMap = new HashMap<>();
+    }
+
+    public void addAllUsefulObject(Map<Long,UsefulObject> objectMap)
+    {
         this.objectMap.putAll(objectMap);
     }
     public void addUsefulObject(@NonNull UsefulObject obj)

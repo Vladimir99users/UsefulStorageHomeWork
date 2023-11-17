@@ -32,7 +32,8 @@ public class RequestServiceTest
             throw new RuntimeException(e);
         }
 
-        requestService = new RequestService(requestable, objectMap);
+        requestService = new RequestService(requestable);
+        requestService.addAllUsefulObject(objectMap);
     }
     @Test
     public void addToStorageUsefulObjects()

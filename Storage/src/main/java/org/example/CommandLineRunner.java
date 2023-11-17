@@ -1,7 +1,6 @@
 package org.example;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,24 +13,23 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
 {
     @Value("${input.data.path}")
     private String inputDataPath;
-    private DisplayService displayService;
+    private final DisplayService displayService;
+    private final RequestService requestService;
+    private final Readable readable;
+
+    public CommandLineRunner(DisplayService displayService,RequestService requestService, Readable readable )
+    {
+        this.displayService = displayService;
+        this.requestService = requestService;
+        this.readable = readable;
+    }
 
     @Override
     public void run(String... args)
     {
-        initializeComponent();
-        displayService.runService();
-    }
-
-
-    private void initializeComponent()
-    {
-        //Инициализация всех компонентов.
-        Requestable requestable = new Requests();
-
         Map<Long,UsefulObject> objectMap = getObjectMapFromFile();
-
-        displayService = new DisplayService(new RequestService(requestable, objectMap));
+        requestService.addAllUsefulObject(objectMap);
+        displayService.runService();
     }
 
 
@@ -40,8 +38,6 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         //получаем нужные данные из файла.
         try
         {
-            Readable readable = new ReadDataFromFile();
-
             return readable.readData(inputDataPath);
         } catch (IOException exeption)
         {
