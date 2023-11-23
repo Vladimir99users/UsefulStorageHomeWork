@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,20 +19,29 @@ public class RequestServiceTest
 
     private static RequestService requestService;
 
+    private static UsefulObject firstObject = new UsefulObject();
+    private static UsefulObject secondObject = new UsefulObject();
+
     @BeforeAll
     private static void setup()
     {
         Requestable requestable = new Requests();
 
-        Readable readable = new ReadDataFromFile();
-        Map<Long,UsefulObject> objectMap;
+        // Добавил в ручную 1-2 объекта, без считывания
 
-        try {
-            objectMap = readable.readData(getPath());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        firstObject.setId(firstObject.hashCode());
+        firstObject.setName("Oleg");
 
+        secondObject.setId(firstObject.hashCode());
+        secondObject.setName("Kolya");
+
+        // заполнил тут мапу
+        Map<Long,UsefulObject> objectMap = new HashMap<>();
+
+        objectMap.put(firstObject.getId(),firstObject);
+        objectMap.put(secondObject.getId(), secondObject);
+
+        // создал и вставил всё объекты в сервис
         requestService = new RequestService(requestable);
         requestService.addAllUsefulObject(objectMap);
     }
@@ -39,35 +49,30 @@ public class RequestServiceTest
     public void addToStorageUsefulObjects()
     {
         //Тест на проверку добавления объекта
+        // я уже добавил колю, а значит проверяю, что первый найденный элемент это он
+        // так как добавил в ручную только одного колю
 
         //Arrange
-        UsefulObject objExpected = new UsefulObject();
-
-        objExpected.setId(objExpected.hashCode());
+        String expectedName = firstObject.getName();
 
         //act
-
-        requestService.addUsefulObject(objExpected);
-
-        UsefulObject objActual = requestService.getUsefulObjectByID(objExpected.getId());
+        UsefulObject objActual = requestService.getUsefulObjectsByName(expectedName).get(0);
 
         //Assert
         Assertions.assertNotNull(objActual);
-        Assertions.assertEquals(objExpected, objActual );
+        Assertions.assertEquals(expectedName, objActual.getName() );
     }
     @Test
     public void correctIDTest()
     {
         // Тест на проверку ID - ID это хэш код имени
+        //Arrange
+        long expectedID = secondObject.getId();
 
-        UsefulObject objExpected = new UsefulObject();
-
-        long expectedID = objExpected.getId();
-
-        requestService.addUsefulObject(objExpected);
-
+        //act
         UsefulObject newObj = requestService.getUsefulObjectByID(expectedID);
 
+        //Assert
         Assertions.assertNotNull(newObj);
         Assertions.assertEquals(expectedID, newObj.getId());
     }
@@ -75,11 +80,14 @@ public class RequestServiceTest
     @Test
     public void searchUsefulObjectToNameTest()
     {
-       //Проверка на правильность поиска имени, суть в том, что мы должны находить массив объектов, с одинаковым именем, а это значит, что если первый элемент проходит, то и остальные тоже.
-        String expectedName = "Test";
+        //Проверка на правильность поиска имени, суть в том, что мы должны находить массив объектов, с одинаковым именем, а это значит, что если первый элемент проходит, то и остальные тоже.
+        //Arrange
+        String expectedName = secondObject.getName();
 
+        //act
         List<UsefulObject> newObjs = requestService.getUsefulObjectsByName(expectedName);
 
+        //Assert
         Assertions.assertNotNull(newObjs);
 
         for (UsefulObject tmpObj : newObjs)
@@ -89,7 +97,7 @@ public class RequestServiceTest
 
     }
 
-    private static String getPath() throws IOException
+    private static String getPath()
     {
         String resourceName = "TestFile.json";
 

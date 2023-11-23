@@ -32,17 +32,10 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         displayService.runService();
     }
 
-
     private Map<Long,UsefulObject> getObjectMapFromFile()
     {
         //получаем нужные данные из файла.
-        try
-        {
-            return readable.readData(inputDataPath);
-        } catch (IOException exeption)
-        {
-            throw new RuntimeException(exeption);
-        }
+        return readable.readData(inputDataPath);
     }
 
 }

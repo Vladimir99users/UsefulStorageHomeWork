@@ -33,7 +33,8 @@ public  class  ReadDataFromFile implements Readable
 
         return datas;
     }
-    public List<UsefulObject> getListValue(String path)
+
+    private List<UsefulObject> getListValue(String path)
     {
         //Получаем данные через мапер и файл
         File file = new File(path);
@@ -45,7 +46,7 @@ public  class  ReadDataFromFile implements Readable
         }
         catch(IOException e)
         {
-            throw new RuntimeException("An error occurred while reading file: " + file.toString());
+            throw new RuntimeException("An error occurred while reading file: " + e.toString());
         }
     }
 }

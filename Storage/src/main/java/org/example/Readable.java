@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface Readable
 {
-    public Map<Long, UsefulObject> readData(String path) throws IOException;
-    public List<UsefulObject> getListValue(String path);
+    public Map<Long, UsefulObject> readData(String path);
+
 }
