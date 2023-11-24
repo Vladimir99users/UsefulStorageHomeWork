@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,12 +61,19 @@ public class ReadDataFromFileTest
     @DisplayName("ReadingFileWithMissingData")
     public void readMissingDataFileTest()
     {
-        String fullPath = "./src/test/resources/BadFile.json";
-        File file = new File(fullPath);
+        //Arrange
+        String missingDataFile = "./src/test/resources/BadFile.json";
 
-        Map<Long, UsefulObject> datas = reader.readData(file.getPath());
+        String expectedExpeption = "@NotNull method org/example/UsefulObject.getName must not return null";
 
-        Assertions.assertFalse(datas.isEmpty());
+        //Act
+        IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+            reader.readData(missingDataFile);
+        });
+
+
+        //Assert
+        Assertions.assertEquals(expectedExpeption, exception.getMessage());
     }
 
     @Test
