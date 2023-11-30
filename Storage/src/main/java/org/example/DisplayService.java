@@ -1,17 +1,19 @@
 package org.example;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.List;
 
+@Component
+@RequiredArgsConstructor
 public class DisplayService
 {
-    private RequestService service;
-    public DisplayService(RequestService service)
-    {
-        this.service = service;
-    }
+    private final RequestService service;
+
     public void runService()
     {
         Scanner scanner = new Scanner(System.in);
@@ -60,20 +62,14 @@ public class DisplayService
             displayData(obj);
         }
     }
-
     private void displayObjectToID(Long id)
     {
         UsefulObject obj = service.getUsefulObjectByID(id);
-
         displayData(obj);
     }
 
-    private void displayData(UsefulObject obj)
+    private void displayData(@NonNull UsefulObject obj)
     {
-        if(Objects.isNull(obj))
-            return;
-
-
-        System.out.println(String.format("Object is %s", obj.getStringData()));
+        System.out.println(String.format("Object is %s", obj.toString()));
     }
 }

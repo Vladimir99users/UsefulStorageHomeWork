@@ -1,25 +1,30 @@
 package org.example;
 
+import lombok.NonNull;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+@Service
 public class RequestService
 {
+    private final Requestable request;
     private final Map<Long,UsefulObject> objectMap;
-    private final Requestable requests;
 
-    public RequestService(Requestable requests)
+    public RequestService(Requestable request)
     {
-        this.requests = requests;
-        objectMap = new HashMap<Long,UsefulObject>();
+        this.request = request;
+        this.objectMap = new HashMap<>();
     }
 
-    public void addUsefulObject(UsefulObject obj)
+    public void addAllUsefulObject(Map<Long,UsefulObject> objectMap)
     {
-        Objects.requireNonNull(obj, "Передаётся нулевой объект");
-
+        this.objectMap.putAll(objectMap);
+    }
+    public void addUsefulObject(@NonNull UsefulObject obj)
+    {
         if(objectMap.containsKey(obj.getId()))
         {
             System.out.println("The object has already been added to the collection");
@@ -30,12 +35,12 @@ public class RequestService
     }
     public UsefulObject getUsefulObjectByID(Long data)
     {
-        return requests.getFindData(data, objectMap);
+        return request.getFindData(data, objectMap);
     }
 
     public List<UsefulObject> getUsefulObjectsByName(String data)
     {
-        return requests.getFindData(data, objectMap);
+        return request.getFindData(data, objectMap);
     }
 }
 
