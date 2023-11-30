@@ -9,6 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 public class Main
 {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args).close();
+        SpringApplication.run(Main.class, args);
     }
 }

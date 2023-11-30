@@ -29,7 +29,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
     {
         Map<Long,UsefulObject> objectMap = getObjectMapFromFile();
         requestService.addAllUsefulObject(objectMap);
-        displayService.runService();
+        //displayService.runService();
     }
 
     private Map<Long,UsefulObject> getObjectMapFromFile()
