@@ -1,4 +1,4 @@
-package org.example;
+/*package org.example;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,4 +38,4 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         return readable.readData(inputDataPath);
     }
 
-}
+}*/
