@@ -1,10 +1,12 @@
 package org.example;
 
 import lombok.AllArgsConstructor;
+import org.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -29,7 +31,8 @@ public class RestControll
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public UsefulObject getUsefulObjectByID(@PathVariable Long id)
     {
-        return requestService.getUsefulObjectByID(id);
+        return Optional.ofNullable(requestService.getUsefulObjectByID(id)).
+                orElseThrow(() -> new NotFoundException("Not found ID"));
     }
 
     @RequestMapping(value = "Names/{name}", method = RequestMethod.GET)
@@ -41,14 +44,14 @@ public class RestControll
     public void updateUsefulObject(@PathVariable Long oldIDObject,
                                    @RequestBody UsefulObject newObj)
     {
-        UsefulObject updateObj = requestService.getUsefulObjectByID(oldIDObject);
-        requestService.deletedUsefulObject(updateObj);
+        UsefulObject updateObj = getUsefulObjectByID(oldIDObject);
 
         updateObj.setName(newObj.getName());
         updateObj.setLink(newObj.getLink());
         updateObj.setDescription(newObj.getDescription());
 
-        requestService.addUsefulObject(updateObj);
+        deletedUsefulObject(updateObj);
+        addNewUsefulObject(updateObj);
     }
 
 }

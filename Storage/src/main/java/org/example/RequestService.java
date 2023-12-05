@@ -23,28 +23,26 @@ public class RequestService
     {
         this.objectMap.putAll(objectMap);
     }
-    public boolean addUsefulObject(@NonNull UsefulObject obj)
+    public void addUsefulObject(@NonNull UsefulObject obj)
     {
         if(objectMap.containsKey(obj.getId()))
         {
             System.out.println("The object has already been added to the collection");
-            return false;
+            return;
         }
 
         objectMap.put(obj.getId(), obj);
-        return true;
     }
 
-    public boolean deletedUsefulObject(@NonNull UsefulObject obj)
+    public void deletedUsefulObject(@NonNull UsefulObject obj)
     {
         if(objectMap.containsKey(obj.getId()))
         {
             System.out.println("The object has already been added to the collection");
-            return false;
+            return;
         }
 
         objectMap.remove(obj.getId());
-        return true;
     }
     public UsefulObject getUsefulObjectByID(Long data)
     {
